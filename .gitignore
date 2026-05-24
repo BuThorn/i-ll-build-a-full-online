@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Build output
+dist/
+staticfiles/
+
+# Local environment and databases
+.env
+db.sqlite3
+*.sqlite3
+
+# Logs and caches
+*.log
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+
