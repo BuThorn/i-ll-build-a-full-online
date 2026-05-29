@@ -41,6 +41,13 @@ export type Order = {
   created_at: string;
 };
 
+export type OrderListResponse = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Order[];
+};
+
 export type User = {
   id: number;
   username: string;
