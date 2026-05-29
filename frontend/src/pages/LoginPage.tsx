@@ -1,19 +1,22 @@
 import { FormEvent, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 
 export function LoginPage() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState("");
+
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? "/";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
     try {
       await login(String(form.get("username")), String(form.get("password")));
-      navigate("/");
+      navigate(from, { replace: true });
     } catch {
       setError("Invalid username or password.");
     }

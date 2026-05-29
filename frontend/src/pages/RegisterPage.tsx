@@ -1,12 +1,15 @@
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 
 export function RegisterPage() {
   const { register } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState("");
+
+  const from = (location.state as { from?: { pathname: string } })?.from?.pathname ?? "/";
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -19,7 +22,7 @@ export function RegisterPage() {
         first_name: String(form.get("first_name")),
         last_name: String(form.get("last_name")),
       });
-      navigate("/");
+      navigate(from, { replace: true });
     } catch {
       setError("We could not create that account. Please review your details.");
     }

@@ -24,6 +24,19 @@ python manage.py runserver
 
 The API is available at `http://127.0.0.1:8000/api/`.
 
+### Deployment
+
+For production, collect static files and run the app with a WSGI server like Gunicorn:
+
+```powershell
+cd backend
+.\.venv\Scripts\Activate.ps1
+python manage.py collectstatic --noinput
+gunicorn config.wsgi:application --bind 0.0.0.0:8000
+```
+
+Set `DJANGO_DEBUG=False`, update `DJANGO_SECRET_KEY`, and configure `DJANGO_ALLOWED_HOSTS`, `DJANGO_CSRF_TRUSTED_ORIGINS`, and `DATABASE_URL` in your environment.
+
 ## Frontend
 
 Use `npm.cmd` on Windows PowerShell if `npm.ps1` is blocked by execution policy.
